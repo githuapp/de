@@ -186,61 +186,72 @@ button {
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  const nombreUsuario = document.getElementById('nombreUsuario');
-  const avatar = document.getElementById('avatarIcono');
-  const subtitulo = document.querySelector('.subtitulo-prime');
-  const backgroundSlider = document.getElementById('backgroundSlider');
-  const btnLogin = document.getElementById('btnLogin');
-  const btnCompartir = document.getElementById('btnCompartir');
+  // Elementos
+  var subtitulo = document.querySelector('.subtitulo-prime');
+  var btnLogin = document.getElementById('btnLogin');
+  var btnCompartir = document.getElementById('btnCompartir');
 
-  // Preload images
-  const fondos = backgroundSlider.querySelectorAll('img');
+  // Constantes
+  var SHARE_URL = window.location.href; // URL para compartir
+  var SLIDE_INTERVAL = 8000; // Intervalo de cambio de fondo (ms)
+
+  // Función para saludo dinámico según hora del día
+  function setDynamicGreeting() {
+    var now = new Date();
+    var hour = now.getHours();
+    var greeting = '¡Buenas noches!';
+    if (hour >= 5 && hour < 12) greeting = '¡Buenos días!';
+    else if (hour >= 12 && hour < 18) greeting = '¡Buenas tardes!';
+    if (subtitulo) subtitulo.textContent = `${greeting} ¿Qué veremos hoy?`;
+  }
+
+  // Función para compartir enlace
+  async function handleShare() {
+    try {
+      if (navigator.share) {
+        await navigator.share({ title:'LZPLAY', text:'¡Mira este sitio genial!', url: SHARE_URL });
+      } else {
+        await navigator.clipboard.writeText(SHARE_URL);
+        alert('Enlace copiado al portapapeles!');
+      }
+    } catch(e){
+      console.error(e);
+      alert('Error al compartir.');
+    }
+  }
+
+  // Evento del botón compartir
+  btnCompartir.addEventListener('click', handleShare);
+
+  // Botón login (pendiente de implementar)
+  btnLogin.addEventListener('click', function() {
+    alert('Función de login pendiente de implementar.');
+  });
+
+  // Inicializar saludo
+  setDynamicGreeting();
+
+  // --- Slider de fondo ---
+  var backgroundSlider = document.getElementById('backgroundSlider');
+  var fondos = backgroundSlider.querySelectorAll('img');
+
+  // Preload de imágenes
   fondos.forEach(img => new Image().src = img.src);
 
-  let index = 0;
+  var index = 0;
   fondos[index].classList.add('active');
 
   function changeSlide() {
-    fondos.forEach((img) => { img.classList.remove('active'); img.style.transform='scale(1)'; });
+    fondos.forEach(img => { img.classList.remove('active'); img.style.transform='scale(1)'; });
     index = (index + 1) % fondos.length;
     fondos[index].classList.add('active');
   }
 
-  let sliderInterval = setInterval(changeSlide, SLIDE_INTERVAL);
+  var sliderInterval = setInterval(changeSlide, SLIDE_INTERVAL);
   backgroundSlider.addEventListener("mouseenter", () => clearInterval(sliderInterval));
   backgroundSlider.addEventListener("mouseleave", () => { sliderInterval = setInterval(changeSlide, SLIDE_INTERVAL); });
-
-  function loadUserProfile() {
-    try {
-      const nombreGuardado = localStorage.getItem('nombrePerfil');
-      if (nombreGuardado?.trim()) nombreUsuario.textContent = nombreGuardado.trim();
-      avatar.src = localStorage.getItem('iconoUsuario') || DEFAULT_AVATAR;
-      avatar.onerror = () => { avatar.src = DEFAULT_AVATAR; };
-    } catch (error) { console.error(error); }
-  }
-
-  function setDynamicGreeting() {
-    const now = new Date();
-    const hour = now.getHours();
-    let greeting = '¡Buenas noches!';
-    if (hour >=5 && hour < 12) greeting='¡Buenos días!';
-    else if(hour >=12 && hour <18) greeting='¡Buenas tardes!';
-    if(subtitulo) subtitulo.textContent = `${greeting} ¿Qué veremos hoy?`;
-  }
-
-  async function handleShare() {
-    try {
-      if(navigator.share) await navigator.share({ title:'LZPLAY', text:'¡Mira este sitio genial!', url: SHARE_URL });
-      else { await navigator.clipboard.writeText(SHARE_URL); alert('Enlace copiado!'); }
-    } catch(e){ console.error(e); alert('Error al compartir.'); }
-  }
-
-  loadUserProfile();
-  setDynamicGreeting();
-
-  btnLogin.addEventListener('click', handleLogin);
-  btnCompartir.addEventListener('click', handleShare);
 });
 </script>
+
 </body>
 </html>
