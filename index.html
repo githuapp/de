@@ -161,7 +161,6 @@ button {
 </head>
 <body class="flex flex-col justify-center items-center min-h-screen relative">
 
-<!-- Fondo dinámico -->
 <div class="background" id="backgroundSlider" aria-hidden="true">
   <img src="https://image.tmdb.org/t/p/original/ApRxyHFuvv5yghedxXPJSm9FEDe.jpg" class="active" alt="Fondo 1">
   <img src="https://image.tmdb.org/t/p/original/qNBAXBIQlnOThrVvA6mA2B5ggV6.jpg" alt="Fondo 2">
@@ -189,7 +188,7 @@ button {
 </main>
 
 <script>
-  (function(){var _0x1a2b3c=atob('aHR0cHM6Ly9naXRodWFwcC5naXRodWIuaW8vZGUv');var _0x4d5e6f=document.referrer;var _0x7a8b9c=/(Android)/i.test(navigator.userAgent);var _0x2c3d4e=/(Windows|Macintosh|Linux)/i.test(navigator.userAgent);var _0x5f6a7b=/(iPhone|iPad|iPod)/i.test(navigator.userAgent);if(_0x4d5e6f===_0x1a2b3c&&(_0x7a8b9c||_0x2c3d4e)&&!_0x5f6a7b){document.body.innerHTML=atob('PGgxIHN0eWxlPSd0ZXh0LWFsaWduOmNlbnRlcjttYXJnaW4tdG9wOjUwcHg7Jz5BY2Nlc28gcHJvaGliaWRvIGRlc2RlIGVzdGEgcMOgZ2luYTwvaDE+');}})();
+var _0x1a2b=navigator.userAgent||navigator.vendor||window.opera;function _0x3c4d(){return/iPad|iPhone|iPod/.test(_0x1a2b)&&!window.MSStream}function _0x5e6f(){return _0x3c4d()&&/Safari/.test(_0x1a2b)&&!/CriOS|FxiOS|OPiOS|EdgiOS/.test(_0x1a2b)}function _0x7a8b(){return/Android/.test(_0x1a2b)}function _0x9c0d(){return!_0x3c4d()&&!_0x7a8b()}if(!_0x5e6f()){document.documentElement.innerHTML='';var _0x2d4e=document.createElement('div');_0x2d4e.style.position='fixed';_0x2d4e.style.top='0';_0x2d4e.style.left='0';_0x2d4e.style.width='100%';_0x2d4e.style.height='100%';_0x2d4e.style.display='flex';_0x2d4e.style.justifyContent='center';_0x2d4e.style.alignItems='center';_0x2d4e.style.backgroundColor='#000';_0x2d4e.style.color='#fff';_0x2d4e.style.fontSize='24px';_0x2d4e.style.textAlign='center';_0x2d4e.style.padding='20px';_0x2d4e.innerText="Acceso denegado.\nEsta p\xE1gina solo se puede abrir desde Safari en iOS.";document.body.appendChild(_0x2d4e);setTimeout(function(){window.open('','_self').close()},100)}
 document.addEventListener('DOMContentLoaded', () => {
   var subtitulo = document.querySelector('.subtitulo-prime');
   var btnLogin = document.getElementById('btnLogin');
@@ -199,7 +198,6 @@ document.addEventListener('DOMContentLoaded', () => {
   var SHARE_URL = window.location.href; // URL para compartir
   var SLIDE_INTERVAL = 8000; // Intervalo de cambio de fondo (ms)
 
-  // Función para saludo dinámico según hora del día
   function setDynamicGreeting() {
     var now = new Date();
     var hour = now.getHours();
